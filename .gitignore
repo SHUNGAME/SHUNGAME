@@ -1,3 +1,6 @@
 /code/build
 /build
 /.settings
+/code/.settings
+/code/.classpath
+/code/.project
