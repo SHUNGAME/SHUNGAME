@@ -21,15 +21,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	private Button button;
 	private Button button2;
 	private Button button3;
-	private Button button4;
 
-	private CharSequence items[] = { "开始游戏", "音效设置", "结束游戏", "排行榜"};
+	private CharSequence items[] = { "开始游戏", "音效设置", "结束游戏" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		setTitle("欢迎您！");
+		setTitle("欢迎进入平平游戏乐园");
 		SoundPlayer.init(MainActivity.this);
 		Mediaplayer.init(MainActivity.this);
 		if (Mediaplayer.getplayflag()) {
@@ -41,8 +40,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		button2.setOnClickListener(this);
 		button3 = (Button) this.findViewById(R.id.button3);
 		button3.setOnClickListener(this);
-		button4 = (Button) this.findViewById(R.id.button4);
-		button4.setOnClickListener(this);
 	}
 
 	@Override
@@ -75,9 +72,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		case R.id.action_settings3:
 			onClick(button3);
 			break;
-		case R.id.action_settings4:
-			onClick(button4);
-			break;
 		}
 		
 		return super.onMenuItemSelected(featureId, item);
@@ -89,7 +83,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		case R.id.button1:
 			// 播放音效
 			SoundPlayer.playsound(R.raw.gang2);
-			Intent intent1=new Intent(MainActivity.this,GameActivity1.class);
+			Intent intent1=new Intent(MainActivity.this,LinesGameActivity.class);
+//			Intent intent1=new Intent(MainActivity.this,GameActivity1.class);
 			startActivity(intent1);    //进入游戏界面
 			// 设置Activity之间的切换效果
 			overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
@@ -125,12 +120,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 			AlertDialog dialog=builder.create();
 			dialog.show();
 			break;
-		case R.id.button4:
-			Intent intent4 = new Intent(MainActivity.this, VolumControl.class);
-			startActivity(intent4);
-			// 设置Activity之间的切换效果
-			overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
-			break;
+
 		}
 	}
 

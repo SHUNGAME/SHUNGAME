@@ -22,8 +22,8 @@ public class getquestion {
 		getsqldatabase getsql = new getsqldatabase(context);
 		SQLiteDatabase database = getsql.opensqlDatabase();
 		Cursor cursor = database.rawQuery(
-				"select * from question where id=?", args);
-//				"select * from question where id=? and state=?", args);
+//				"select * from question where id=?", args);
+				"select * from question where id=? and state=?", args);
 		int colums = cursor.getColumnCount();
 		while (cursor.moveToNext()) {
 			for (int i = 0; i < colums; i++) {
