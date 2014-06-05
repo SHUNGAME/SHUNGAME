@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+<!-- 框架spring配置，使用中可直接SpringApplicationContext.getBean("beanName")得到bean -->
+
+    <bean id="test"
+        class="org.shun.game.test.SpringTest">
+    </bean>
+</beans>
