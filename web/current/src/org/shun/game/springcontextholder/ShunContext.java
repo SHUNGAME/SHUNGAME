@@ -1,11 +1,17 @@
 package org.shun.game.springcontextholder;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class ShunContext implements ApplicationContextAware {
+public class ShunContext implements ApplicationContextAware , DisposableBean {
 	private static ApplicationContext applicationContext = null;
+	
+	public ShunContext(String[] filenames){
+		applicationContext = new ClassPathXmlApplicationContext(filenames);
+	}
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext)
@@ -52,6 +58,12 @@ public class ShunContext implements ApplicationContextAware {
 			throw new IllegalStateException(
 					"applicaitonContext未注入,请在applicationContext.xml中定义SpringContextHolder");
 		}
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		// TODO Auto-generated method stub
+		applicationContext = null;
 	}
 
 }
