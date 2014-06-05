@@ -1,4 +1,4 @@
-package org.shun.game.servlets;
+ï»¿package org.shun.game.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,20 +25,21 @@ public class IndexServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		resp.setContentType("application/javascript;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
-		//scoreType=100£ºÖÜ£»200£ºÔÂ£»300£ºÄê
+		//scoreType=100ï¼šå‘¨ï¼›200ï¼šæœˆï¼›300ï¼šå¹´
 		String scoreType = req.getParameter("scoreType");
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("userid", "1");
-		map.put("username", "²âÊÔ1");
+		map.put("username", "æµ‹è¯•1");
 		map.put("ranking", "1");
 		map.put("scoreType", scoreType);
 		map.put("score", "100");
 		list.add(map);
 		map = new HashMap<String,Object>();
 		map.put("userid", "2");
-		map.put("username", "²âÊÔ2");
+		map.put("username", "æµ‹è¯•2");
 		map.put("ranking", "2");
 		map.put("scoreType", scoreType);
 		map.put("score", "90");

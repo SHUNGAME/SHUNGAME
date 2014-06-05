@@ -1,4 +1,4 @@
-package org.shun.game.springcontextholder;
+ï»¿package org.shun.game.springcontextholder;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
@@ -21,7 +21,7 @@ public class ShunContext implements ApplicationContextAware , DisposableBean {
 	}
 
 	/**
-	 * È¡µÃ´æ´¢ÔÚ¾²Ì¬±äÁ¿ÖĞµÄApplicationContext.
+	 * å–å¾—å­˜å‚¨åœ¨é™æ€å˜é‡ä¸­çš„ApplicationContext.
 	 */
 	public static ApplicationContext getApplicationContext() {
 		checkApplicationContext();
@@ -29,7 +29,7 @@ public class ShunContext implements ApplicationContextAware , DisposableBean {
 	}
 
 	/**
-	 * ´Ó¾²Ì¬±äÁ¿ApplicationContextÖĞÈ¡µÃBean, ×Ô¶¯×ªĞÍÎªËù¸³Öµ¶ÔÏóµÄÀàĞÍ.
+	 * ä»é™æ€å˜é‡ApplicationContextä¸­å–å¾—Bean, è‡ªåŠ¨è½¬å‹ä¸ºæ‰€èµ‹å€¼å¯¹è±¡çš„ç±»å‹.
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getBean(String name) {
@@ -38,7 +38,7 @@ public class ShunContext implements ApplicationContextAware , DisposableBean {
 	}
 
 	/**
-	 * ´Ó¾²Ì¬±äÁ¿ApplicationContextÖĞÈ¡µÃBean, ×Ô¶¯×ªĞÍÎªËù¸³Öµ¶ÔÏóµÄÀàĞÍ.
+	 * ä»é™æ€å˜é‡ApplicationContextä¸­å–å¾—Bean, è‡ªåŠ¨è½¬å‹ä¸ºæ‰€èµ‹å€¼å¯¹è±¡çš„ç±»å‹.
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getBean(Class<T> clazz) {
@@ -47,7 +47,7 @@ public class ShunContext implements ApplicationContextAware , DisposableBean {
 	}
 
 	/**
-	 * Çå³ıapplicationContext¾²Ì¬±äÁ¿.
+	 * æ¸…é™¤applicationContexté™æ€å˜é‡.
 	 */
 	public static void cleanApplicationContext() {
 		applicationContext = null;
@@ -56,7 +56,7 @@ public class ShunContext implements ApplicationContextAware , DisposableBean {
 	private static void checkApplicationContext() {
 		if (applicationContext == null) {
 			throw new IllegalStateException(
-					"applicaitonContextÎ´×¢Èë,ÇëÔÚapplicationContext.xmlÖĞ¶¨ÒåSpringContextHolder");
+					"applicaitonContextæœªæ³¨å…¥,è¯·åœ¨applicationContext.xmlä¸­å®šä¹‰SpringContextHolder");
 		}
 	}
 
