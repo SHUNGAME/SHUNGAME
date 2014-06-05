@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 
-@WebServlet("index.html")
+@WebServlet("/index.html")
 public class IndexServlet extends HttpServlet {
 	/**
 	 * serial id.
