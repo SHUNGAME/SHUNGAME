@@ -12,6 +12,10 @@ public class ShunContext implements ApplicationContextAware , DisposableBean {
 	public ShunContext(String[] filenames){
 		applicationContext = new ClassPathXmlApplicationContext(filenames);
 	}
+	
+	public ShunContext(){
+		applicationContext = new ClassPathXmlApplicationContext("classpath*:config/spring/**/applicationContext-*.xml");
+	}
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext)
