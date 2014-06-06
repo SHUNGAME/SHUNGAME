@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1">
+
+    <TextView
+        android:id="@+id/countinfo"
+        android:layout_width="280dip"
+        android:layout_height="40dip"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dip"
+        android:gravity="center"
+        android:text="@string/countinfo"/>
+    
+    <TextView
+        android:id="@+id/space1"
+        android:layout_width="280dip"
+        android:layout_height="40dip"
+        android:layout_below="@+id/countinfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dip"
+        android:gravity="center"/>
+    
+    <TextView
+        android:id="@+id/space2"
+        android:layout_width="280dip"
+        android:layout_height="40dip"
+        android:layout_below="@+id/countinfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dip"
+        android:gravity="center"/>
+    
+    <TextView
+        android:id="@+id/space3"
+        android:layout_width="280dip"
+        android:layout_height="40dip"
+        android:layout_below="@+id/countinfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dip"
+        android:gravity="center"/>
+    
+    <TextView
+        android:id="@+id/space4"
+        android:layout_width="280dip"
+        android:layout_height="40dip"
+        android:layout_below="@+id/countinfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dip"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/you"
+        android:layout_width="200dip"
+        android:layout_height="30dip"
+        android:layout_below="@+id/countinfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dip"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="@string/you" />
+    
+    <TextView 
+        android:id="@+id/resultcout"
+        android:layout_width="80dip"
+	    android:layout_height="80dip"
+	    android:layout_below="@+id/countinfo"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="50dip"
+	    android:background="@drawable/test"/>
+    
+    <TextView
+	    android:id="@+id/reward"
+	    android:layout_width="20dip"
+	    android:layout_height="20dip"
+	    android:layout_alignTop="@+id/countinfo"
+	    android:layout_centerHorizontal="true"
+	    android:gravity="center"
+	    android:layout_marginTop="120dip"
+	    android:text="@string/reward" />
+    
+    <TextView
+        android:id="@+id/ge"
+        android:layout_width="20dip"
+        android:layout_height="20dip"
+        android:layout_below="@+id/countinfo"
+        android:layout_alignRight="@id/countinfo"
+        android:gravity="center"
+        android:layout_marginTop="80dip"
+        android:layout_marginRight="75dip"
+        android:text="@string/ge" />
+    
+    <TextView
+        android:id="@+id/getscores"
+        android:layout_width="80dip"
+        android:layout_height="30dip"
+        android:layout_below="@+id/countinfo"
+        android:layout_alignLeft="@id/countinfo"
+        android:gravity="center_vertical"
+        android:layout_marginTop="140dip"
+        android:layout_marginLeft="55dip"
+        android:text="@string/get"/>
+    
+    <TextView 
+        android:id="@+id/finalscores"
+        android:layout_width="60dip"
+        android:layout_height="30dip"
+        android:layout_below="@+id/countinfo"
+        android:layout_alignLeft="@id/countinfo"
+        android:gravity="center_vertical"
+        android:layout_marginTop="140dip"
+        android:layout_marginLeft="130dip"
+        android:text="@string/nullstr"/>
+    
+    <Button 
+        android:id="@+id/Diaexit"
+        android:layout_width="100dip"
+        android:layout_height="40dip"
+        android:layout_below="@+id/countinfo"
+        android:layout_alignLeft="@id/countinfo"
+        android:gravity="center"
+        android:layout_marginTop="200dip"
+        android:layout_marginLeft="20dip"
+        android:text="@string/exitquestion"/>
+    
+    <Button 
+        android:id="@+id/Dianext"
+        android:layout_width="100dip"
+        android:layout_height="40dip"
+        android:layout_below="@+id/countinfo"
+        android:layout_alignRight="@id/countinfo"
+        android:gravity="center"
+        android:layout_marginTop="200dip"
+        android:layout_marginRight="20dip"
+        android:text="@string/nextquesiton"/>
+    
+</RelativeLayout>

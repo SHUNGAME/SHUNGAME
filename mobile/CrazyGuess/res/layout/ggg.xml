@@ -2,82 +2,95 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cawayi" >
-
-    <TextView
-        android:id="@+id/questiontext"
-        android:layout_width="280dp"
-        android:layout_height="150dp"
-        android:layout_below="@+id/stateprogress"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="questiontext" />
+    android:background="@drawable/background1">
+    
+    <Button 
+        android:id="@+id/back"
+        android:layout_width="80dip"
+        android:layout_height="40dip"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="10dip"
+        android:textSize="15sp"
+        android:text="@string/exitquestion"/>
 
     <Button
         android:id="@+id/aswA"
-        android:layout_width="280dp"
-        android:layout_height="40dp"
+        android:layout_width="280dip"
+        android:layout_height="40dip"
         android:layout_alignLeft="@+id/questiontext"
         android:layout_below="@+id/questiontext"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="20dip"
         android:background="#33CCFF"
-        android:text="aswA" />
+        android:text="@string/option1" />
 
     <Button
         android:id="@+id/aswC"
-        android:layout_width="280dp"
-        android:layout_height="40dp"
+        android:layout_width="280dip"
+        android:layout_height="40dip"
         android:layout_alignLeft="@+id/aswB"
         android:layout_below="@+id/aswB"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="10dip"
         android:background="#33CCFF"
-        android:text="aswC" />
+        android:text="@string/option3" />
 
     <Button
         android:id="@+id/aswD"
-        android:layout_width="280dp"
-        android:layout_height="40dp"
+        android:layout_width="280dip"
+        android:layout_height="40dip"
         android:layout_alignLeft="@+id/aswC"
         android:layout_below="@+id/aswC"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="10dip"
         android:background="#33CCFF"
-        android:text="aswD" />
+        android:text="@string/option4" />
 
     <Button
         android:id="@+id/aswB"
-        android:layout_width="280dp"
-        android:layout_height="40dp"
+        android:layout_width="280dip"
+        android:layout_height="40dip"
         android:layout_alignLeft="@+id/aswA"
         android:layout_below="@+id/aswA"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="10dip"
         android:background="#33CCFF"
-        android:text="aswB" />
-
-    <TextView
-        android:id="@+id/statetext"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="21dp"
-        android:layout_marginTop="40dp"
-        android:layout_toLeftOf="@+id/stateprogress"
-        android:text="statetext" />
-
-    <TextView
-        android:id="@+id/stateprogress"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/statetext"
-        android:layout_alignBottom="@+id/statetext"
-        android:layout_alignRight="@+id/questiontext"
-        android:text="stateprogress" />
+        android:text="@string/option2" />
 
     <ProgressBar
         android:id="@+id/progressBar1"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="300dp"
-        android:layout_height="20dp"
+        android:layout_width="300dip"
+        android:layout_height="20dip"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="95dip"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/questiontext"
+        android:layout_width="280dip"
+        android:layout_height="80dip"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dip"
+        android:text="@string/questiontext" />
+
+    <TextView
+        android:id="@+id/showscors"
+        android:layout_width="100dip"
+        android:layout_height="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dip"
+        android:layout_marginRight="15dip"
+        android:gravity="center"
+        android:text="@string/get" />
+    
+    <TextView
+        android:id="@+id/stateprogress"
+        android:layout_width="100dip"
+        android:layout_height="50dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dip"
+        android:layout_marginRight="15dip"
+        android:gravity="center"
+        android:text="@string/countforcorrect" />
 
 </RelativeLayout>

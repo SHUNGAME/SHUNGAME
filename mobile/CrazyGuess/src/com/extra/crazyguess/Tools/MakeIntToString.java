@@ -1,7 +1,5 @@
 package com.extra.crazyguess.Tools;
 
-import android.R.integer;
-
 public class MakeIntToString {
 
 	public MakeIntToString() {
@@ -24,6 +22,18 @@ public class MakeIntToString {
 		}else{
 			return new String(""+number);
 		}
+	}
+	
+	public static int tranceNum2Score(int number){
+		int singlescore = 0;
+		if(number == 1){
+			singlescore = 1;
+		}else if(number == 2){
+			singlescore = 3;
+		}else if(number == 4){
+			singlescore = 5;
+		}
+		return singlescore;
 	}
 
 }

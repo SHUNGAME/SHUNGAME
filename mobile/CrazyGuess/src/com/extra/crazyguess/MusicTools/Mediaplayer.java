@@ -1,7 +1,5 @@
 package com.extra.crazyguess.MusicTools;
 
-import java.io.IOException;
-
 import com.extra.crazyguess.R;
 
 import android.content.Context;
@@ -23,6 +21,7 @@ public class Mediaplayer {
 		mediaPlayer.start();
 	}
 
+	@SuppressWarnings("unused")
 	private static void StopBackgroundMusic() {
 		mediaPlayer.stop();
 	}

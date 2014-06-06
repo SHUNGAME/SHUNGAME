@@ -1,5 +1,6 @@
 package com.extra.crazyguess;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -8,21 +9,27 @@ import java.util.TimerTask;
 
 import com.extra.crazyguess.Tools.JudgeAnswer;
 import com.extra.crazyguess.Tools.MakeIntToString;
+import com.extra.crazyguess.exchange.HttpTest;
 import com.extra.crazyguess.getsqldatabase.getquestion;
+import com.extra.crazyguess.getsqldatabase.getscoresinfo;
+import com.extra.crazyguess.single.ActivitiesCollection;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class GameActivity1 extends Activity implements OnClickListener {
 
@@ -30,16 +37,17 @@ public class GameActivity1 extends Activity implements OnClickListener {
 		// TODO Auto-generated constructor stub
 	}
 
-	private TextView stateView, stateprogressView, questionView; // 各种状态信息
-	private Button aswA, aswB, aswC, aswD; // 4个答案选项按钮
+	private TextView showscors,stateprogressView, questionView; // 各种状态信息
+	private Button back, aswA, aswB, aswC, aswD; // 4个答案选项按钮
 	private ProgressBar timeprogress; // 时间进度条
 	private int wr = 0; // 答错的题数
 	private int tr = 0; // 答对的题数
 	private int qnumber = 1; // 当前题目的题号
 	private int statenum = 1; // 当前关数
 	private final static int sum = 5; // 总共需要答对的题数
-	private final static int wrsum = 3; // 总共可答错的次数
-	private final static int LASTSTATE = 2; // 最终关数
+//	private final static int wrsum = 3; // 总共可答错的次数
+	private final static int quesum = 8; // 每次挑战总共取出的题目数
+	private final static int LASTSTATE = 2; // 最终关数+1
 	private final static int CHANGE_QUESTION = 1; // 变换游戏界面题目的标识符
 	private final static int SETPROGRESS = 2; // 表示设置时间进度条的标识符
 	private final static int RESTARTGAME = 3; // 重新开始游戏的标识符
@@ -52,22 +60,33 @@ public class GameActivity1 extends Activity implements OnClickListener {
 	private Timer timer; // 设置一个定时器
 	private Random random = new Random(); // 设置一个随机数来随机抽取题目
 	private int[] QuestionNum = new int[8]; // 每一关题目的序列号
+	
+	private String userid = "";
+	private String username = "";
+	private String squesNum = "1";
+	private String lquesNum = "1";
+	private String module = "blank";
+	private String bquesNum = "1"; //填空题题号
+	private int totalscores = 0;//当前总得分
+//	private int challengelevel = 1;//
 
 	// 用线程和handler来处理消息
+	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
+		@SuppressWarnings("unchecked")
 		@Override
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case CHANGE_QUESTION:
 				mainMap = (Map<String, String>) msg.obj;
-				stateView.setText("第" + statenum + "关");
-				stateprogressView.setText(tr + "/" + sum + "\n" + wr + "/"
-						+ wrsum);
+//				stateView.setText("第" + statenum + "关");
+				stateprogressView.setText(tr + "/" + sum + "\n" + "已答错：" + wr);
 				questionView.setText(qnumber + ":" + mainMap.get("questions"));
 				aswA.setText("A." + mainMap.get("a"));
 				aswB.setText("B." + mainMap.get("b"));
 				aswC.setText("C." + mainMap.get("c"));
 				aswD.setText("D." + mainMap.get("d"));
+				showscors.setText(totalscores+"");
 				break;
 			case SETPROGRESS:
 				int progress = (Integer) msg.obj;
@@ -86,46 +105,61 @@ public class GameActivity1 extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ggg);
-		stateView = (TextView) this.findViewById(R.id.statetext);
-		stateprogressView = (TextView) this.findViewById(R.id.stateprogress);
-		questionView = (TextView) this.findViewById(R.id.questiontext);
-		aswA = (Button) this.findViewById(R.id.aswA);
-		aswA.setAlpha((float) 0.5);
-		aswA.setOnClickListener(this);
-		aswB = (Button) this.findViewById(R.id.aswB);
-		aswB.setAlpha((float) 0.5);
-		aswB.setOnClickListener(this);
-		aswC = (Button) this.findViewById(R.id.aswC);
-		aswC.setAlpha((float) 0.5);
-		aswC.setOnClickListener(this);
-		aswD = (Button) this.findViewById(R.id.aswD);
-		aswD.setAlpha((float) 0.5);
-		aswD.setOnClickListener(this);
-		timeprogress = (ProgressBar) this.findViewById(R.id.progressBar1);
-		timeprogress.setMax(TOTALPROGRESS);
-		InitialQNum(); // 初始化题号序列数组
-		new Thread(new StartGame()).start();
-		timer = new Timer(true);
-		timer.schedule(new TimerTask() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				if (progressBarValue == TOTALPROGRESS) {
-					// 超出游戏时间，弹出对话框提示玩家
-//					handler.sendEmptyMessage(RESTARTGAME);
-				} else {
-					// 将信息传送给handler来更新进度条
-					Message message = Message.obtain();
-					message.obj = progressBarValue;
-					message.what = SETPROGRESS;
-					handler.sendMessage(message);
-					// 时间进度自增
-					progressBarValue++;
+		//获取设备id
+		TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+		userid = tm.getDeviceId(); //设备id
+		new dataDevice().dealscores();
+		if(statenum > LASTSTATE){
+			setContentView(R.layout.completed);
+			back = (Button)this.findViewById(R.id.back);
+			back.setOnClickListener(this);
+		}else{
+			setContentView(R.layout.ggg);
+			stateprogressView = (TextView) this.findViewById(R.id.stateprogress);
+			questionView = (TextView) this.findViewById(R.id.questiontext);
+			showscors = (TextView)this.findViewById(R.id.showscors);
+			back = (Button)this.findViewById(R.id.back);
+			back.setOnClickListener(this);
+			aswA = (Button) this.findViewById(R.id.aswA);
+			aswA.setAlpha((float) 0.5);
+			aswA.setOnClickListener(this);
+			aswB = (Button) this.findViewById(R.id.aswB);
+			aswB.setAlpha((float) 0.5);
+			aswB.setOnClickListener(this);
+			aswC = (Button) this.findViewById(R.id.aswC);
+			aswC.setAlpha((float) 0.5);
+			aswC.setOnClickListener(this);
+			aswD = (Button) this.findViewById(R.id.aswD);
+			aswD.setAlpha((float) 0.5);
+			aswD.setOnClickListener(this);
+			timeprogress = (ProgressBar) this.findViewById(R.id.progressBar1);
+			timeprogress.setMax(TOTALPROGRESS);
+			InitialQNum(); // 初始化题号序列数组
+			
+			new Thread(new StartGame()).start();
+			timer = new Timer(true);
+			timer.schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					if (progressBarValue == TOTALPROGRESS) {
+						// 超出游戏时间，弹出对话框提示玩家
+						handler.sendEmptyMessage(RESTARTGAME);
+					} else {
+						// 将信息传送给handler来更新进度条
+						Message message = Message.obtain();
+						message.obj = progressBarValue;
+						message.what = SETPROGRESS;
+						handler.sendMessage(message);
+						// 时间进度自增
+						progressBarValue++;
+					}
 				}
-			}
-		}, 0, 1000);
+			}, 0, 1000);
+		}
+		//添加当前activity到序列
+		ActivitiesCollection.getInstance().addActivity(this);
 	}
 
 	// 初始化QuestionNum数组,随机抽取
@@ -151,6 +185,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
+			
 			getquestion getq = new getquestion(GameActivity1.this);
 			Map<String, String> map = new HashMap<String, String>();
 			// 用MakeIntToString工具类来转换字符，并选择对应题目
@@ -175,35 +210,62 @@ public class GameActivity1 extends Activity implements OnClickListener {
 		}
 		timer.cancel(); // 关闭时钟
 		statenum++; // 关数自增
+		totalscores = totalscores + 50;//获得奖励分数
 		qnumber = 1; // 题号重置为1
 		wr = 0; // 答错重置
 		tr = 0; // 答对重置
 		InitialQNum(); // 重新抽取随机数组为题目序列
 		progressBarValue = 0; // 将时间进度重置为0
-		Toast.makeText(GameActivity1.this, "恭喜你进入第" + statenum + "关！", 0)
-				.show();
-		new Thread(new StartGame()).start();
-		timer = null;
-		timer = new Timer();
-		timer.schedule(new TimerTask() {
+//		Toast.makeText(GameActivity1.this, "恭喜你进入第" + statenum + "关！", 0).show();
+		
+		timer.cancel();
+		AlertDialog.Builder builder = new AlertDialog.Builder(
+				GameActivity1.this);
+		builder.setTitle("提示");
+		builder.setMessage("挑战成功，获得积分50！");
+		builder.setPositiveButton("返回",
+				new DialogInterface.OnClickListener() {
 
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				if (progressBarValue == TOTALPROGRESS) {
-					// 超出游戏时间，弹出对话框提示玩家
-//					handler.sendEmptyMessage(RESTARTGAME);
-				} else {
-					// 将信息传送给handler来更新进度条
-					Message message = Message.obtain();
-					message.obj = progressBarValue;
-					message.what = SETPROGRESS;
-					handler.sendMessage(message);
-					// 时间进度自增
-					progressBarValue++;
-				}
-			}
-		}, 0, 1000);
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						Intent intent1 = new Intent(GameActivity1.this, ChooseModeActivity.class);
+						startActivity(intent1);
+					}
+				});
+		builder.setNegativeButton("继续挑战",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						new Thread(new StartGame()).start();
+						timer = null;
+						timer = new Timer();
+						timer.schedule(new TimerTask() {
+
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								if (progressBarValue == TOTALPROGRESS) {
+									// 超出游戏时间，弹出对话框提示玩家
+									handler.sendEmptyMessage(RESTARTGAME);
+								} else {
+									// 将信息传送给handler来更新进度条
+									Message message = Message.obtain();
+									message.obj = progressBarValue;
+									message.what = SETPROGRESS;
+									handler.sendMessage(message);
+									// 时间进度自增
+									progressBarValue++;
+								}
+							}
+						}, 0, 1000);
+					}
+				});
+		builder.setCancelable(false);
+		Dialog dialog = builder.create();
+		dialog.show();
 	}
 
 	// 重新开始游戏
@@ -213,7 +275,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 		}
 
 		public void restart() {
-			statenum = 1;
+//			statenum = 1;
 			qnumber = 1; // 重置题号为1
 			wr = 0;
 			tr = 0;
@@ -228,7 +290,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 					// TODO Auto-generated method stub
 					if (progressBarValue == TOTALPROGRESS) {
 						// 超出游戏时间，弹出对话框提示玩家
-//						handler.sendEmptyMessage(RESTARTGAME);
+						handler.sendEmptyMessage(RESTARTGAME);
 					} else {
 						// 将信息传送给handler来更新进度条
 						Message message = Message.obtain();
@@ -254,8 +316,8 @@ public class GameActivity1 extends Activity implements OnClickListener {
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					GameActivity1.this);
 			builder.setTitle("提示");
-			builder.setMessage("对不起，你的智商太低，没有在规定时间内完成答题！");
-			builder.setPositiveButton("重新开始",
+			builder.setMessage("对不起，挑战失败！");
+			builder.setPositiveButton("重新挑战",
 					new DialogInterface.OnClickListener() {
 
 						@Override
@@ -265,7 +327,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 							new RestartGame().restart();
 						}
 					});
-			builder.setNegativeButton("主界面",
+			builder.setNegativeButton("返回",
 					new DialogInterface.OnClickListener() {
 
 						@Override
@@ -293,7 +355,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					GameActivity1.this);
 			builder.setTitle("提示");
-			builder.setMessage("对不起，愚蠢的人类，你闯关失败了！");
+			builder.setMessage("对不起，挑战失败了！");
 			builder.setPositiveButton("重新闯关",
 					new DialogInterface.OnClickListener() {
 
@@ -303,7 +365,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 							new RestartGame().restart();
 						}
 					});
-			builder.setNegativeButton("主界面",
+			builder.setNegativeButton("返回",
 					new DialogInterface.OnClickListener() {
 
 						@Override
@@ -326,8 +388,8 @@ public class GameActivity1 extends Activity implements OnClickListener {
 		AlertDialog.Builder builder = new AlertDialog.Builder(
 				GameActivity1.this);
 		builder.setTitle("提示");
-		builder.setMessage("恭喜您通关！！~您的智商真是高!");
-		builder.setPositiveButton("谦让谦让",
+		builder.setMessage("恭喜您完成全部挑战!");
+		builder.setPositiveButton("返回",
 				new DialogInterface.OnClickListener() {
 
 					@Override
@@ -344,16 +406,20 @@ public class GameActivity1 extends Activity implements OnClickListener {
 	@Override
 	public void onBackPressed() { // 按返回键时触发事件
 		// TODO Auto-generated method stub
-		super.onBackPressed();
+//		super.onBackPressed();
 		timer.cancel(); // 将时钟取消并置空
 		timer = null;
-		GameActivity1.this.finish();
+//		GameActivity1.this.finish();
 	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
+		case R.id.back:
+			Intent intent = new Intent(GameActivity1.this, ChooseModeActivity.class);
+			startActivity(intent);
+			break;
 		case R.id.aswA:
 			// 返回当前是否答对
 			flag = new JudgeAnswer(GameActivity1.this).judgeit("a", mainMap);
@@ -365,6 +431,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 						GoOverGame();
 					} else {
 						GoToNextState();
+						new dataDevice().updatescores();//数据库更新
 					}
 				} else {
 					new Thread(new StartGame()).start();
@@ -372,7 +439,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 			} else {
 				wr++;
 				qnumber++;
-				if (wr == wrsum) { // 当错误题量达到上限，弹出游戏结束对话框
+				if (qnumber == quesum) { // 作答次数达到每次取题数的上限，判定挑战失败
 					new ShowGameOverDialog().showdialog();
 				} else { // 否则更换题目
 					new Thread(new StartGame()).start();
@@ -389,6 +456,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 						GoOverGame();
 					} else {
 						GoToNextState();
+						new dataDevice().updatescores();//数据库更新
 					}
 				} else {
 					new Thread(new StartGame()).start();
@@ -396,7 +464,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 			} else {
 				wr++;
 				qnumber++;
-				if (wr == wrsum) {
+				if (qnumber == quesum) {
 					new ShowGameOverDialog().showdialog();
 				} else {
 					new Thread(new StartGame()).start();
@@ -413,6 +481,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 						GoOverGame();
 					} else {
 						GoToNextState();
+						new dataDevice().updatescores();//数据库更新
 					}
 				} else {
 					new Thread(new StartGame()).start();
@@ -420,7 +489,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 			} else {
 				wr++;
 				qnumber++;
-				if (wr == wrsum) {
+				if (qnumber == quesum) {
 					new ShowGameOverDialog().showdialog();
 				} else {
 					new Thread(new StartGame()).start();
@@ -437,6 +506,7 @@ public class GameActivity1 extends Activity implements OnClickListener {
 						GoOverGame();
 					} else {
 						GoToNextState();
+						new dataDevice().updatescores();//数据库更新
 					}
 				} else {
 					new Thread(new StartGame()).start();
@@ -444,13 +514,64 @@ public class GameActivity1 extends Activity implements OnClickListener {
 			} else {
 				wr++;
 				qnumber++;
-				if (wr == wrsum) {
+				if (qnumber == quesum) {
 					new ShowGameOverDialog().showdialog();
 				} else {
 					new Thread(new StartGame()).start();
 				}
 			}
 			break;
+		}
+	}
+	
+	public class dataDevice{
+		
+		public dataDevice(){
+			
+		}
+		
+		public void dealscores (){
+			String [] cstrs = new String[] {userid};
+			//
+			getscoresinfo getsi = new getscoresinfo(GameActivity1.this);
+			Map<String, String> scoresmap = getsi.getscoresinfoMap(cstrs);
+			if(scoresmap.size() == 0){
+				
+			}else{
+				//设置填空题相关信息
+				String ssss = scoresmap.get("scores");
+				totalscores = Integer.parseInt(ssss);
+				String llll = scoresmap.get("challengelevel");
+				statenum = Integer.parseInt(llll);
+				//设置其他信息
+				bquesNum = scoresmap.get("blaquenum");
+				username = scoresmap.get("username");
+				squesNum = scoresmap.get("selquenum");
+				lquesNum = scoresmap.get("linequenum");
+//				module = scoresmap.get("module");
+			}
+		}
+		
+		@SuppressLint("SimpleDateFormat")
+		public void updatescores(){
+			//获取当前系统时间
+			SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String currentdate = sDateFormat.format(new java.util.Date());
+			//
+			getscoresinfo getsi = new getscoresinfo(GameActivity1.this);
+			//获取最终分数跟题号
+			String newscores = totalscores + "";
+			String newbqn = statenum + "";
+			String [] args = new String[]{userid, currentdate};
+			Boolean isExist = getsi.getScoreForCurrent(args);//判断该用户当天的记录是否存在，存在就更新，不存在就插入
+			if(isExist){
+				args = new String[]{newscores, newbqn, module, userid, currentdate};
+				getsi.updateScoreInfoForBlankquestion(args);
+			}else{
+				args = new String[]{userid,username,currentdate,newscores,squesNum,bquesNum,lquesNum,
+						module,newbqn};
+				getsi.insertScoreInfo(args);
+			}
 		}
 	}
 }

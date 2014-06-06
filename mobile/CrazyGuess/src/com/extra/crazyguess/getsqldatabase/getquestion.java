@@ -3,7 +3,6 @@ package com.extra.crazyguess.getsqldatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.R.integer;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

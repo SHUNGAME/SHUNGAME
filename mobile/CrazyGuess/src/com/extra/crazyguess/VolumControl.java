@@ -2,6 +2,7 @@ package com.extra.crazyguess;
 
 import com.extra.crazyguess.MusicTools.Mediaplayer;
 import com.extra.crazyguess.MusicTools.SoundPlayer;
+import com.extra.crazyguess.single.ActivitiesCollection;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ public class VolumControl extends Activity {
 		isplaysound = SoundPlayer.getplayflag();
 		switch1 = (Switch) this.findViewById(R.id.switch1);
 		switch1.setChecked(isplaysound);
+		//Ìí¼Óactivityµ½list
+		ActivitiesCollection.getInstance().addActivity(this);
 		switch1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override

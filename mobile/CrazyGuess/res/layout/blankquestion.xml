@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1">
+    
+    <Button 
+        android:id="@+id/back"
+        android:layout_width="80dip"
+        android:layout_height="40dip"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="10dip"
+        android:textSize="15sp"
+        android:text="@string/exitquestion"/>
+    
+    <TextView
+        android:id="@+id/scorestextB"
+        android:layout_width="60dip"
+        android:layout_height="30dip"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/questionhead"
+        android:layout_marginTop="14dip"
+        android:text="@string/scors" />
+    
+    <TextView
+        android:id="@+id/movietitle"
+        android:layout_width="280dip"
+        android:layout_height="40dip"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dip"
+        android:text="@string/title"/>
+
+    <TextView
+        android:id="@+id/questionhead"
+        android:layout_width="280dip"
+        android:layout_height="40dip"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dip"
+        android:text="@string/head" />
+
+    <TextView
+        android:id="@+id/role1"
+        android:layout_width="140dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/questionhead"
+        android:layout_below="@+id/questionhead"
+        android:layout_marginTop="5dip"
+        android:text="@string/question1" />
+    
+    <TextView
+        android:id="@+id/role2"
+        android:layout_width="140dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/questionhead"
+        android:layout_below="@+id/role1"
+        android:layout_marginTop="5dip"
+        android:text="@string/question2" />
+    
+    <TextView
+        android:id="@+id/role3"
+        android:layout_width="140dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/questionhead"
+        android:layout_below="@+id/role2"
+        android:layout_marginTop="5dip"
+        android:text="@string/question3" />
+    
+    <TextView
+        android:id="@+id/role4"
+        android:layout_width="140dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/questionhead"
+        android:layout_below="@+id/role3"
+        android:layout_marginTop="5dip"
+        android:text="@string/question4" />
+    
+    <TextView
+        android:id="@+id/questiontail"
+        android:layout_width="280dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/questionhead"
+        android:layout_below="@+id/role4"
+        android:layout_marginTop="5dip"
+        android:text="@string/tail"/>
+    
+    <Button
+        android:id="@+id/BoptionA"
+        android:layout_width="120dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/questionhead"
+        android:layout_below="@+id/questiontail"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="5dip"
+        android:text="@string/option1"/>
+
+    <Button
+        android:id="@+id/BoptionB"
+        android:layout_width="120dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/questiontail"
+        android:layout_below="@+id/questiontail"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="130dip"
+        android:text="@string/option2"/>
+    
+    <Button
+        android:id="@+id/BoptionC"
+        android:layout_width="120dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/questiontail"
+        android:layout_below="@+id/questiontail"
+        android:layout_marginTop="50dip"
+        android:layout_marginLeft="5dip"
+        android:text="@string/option3"/>
+    
+    <Button
+        android:id="@+id/BoptionD"
+        android:layout_width="120dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/questiontail"
+        android:layout_below="@+id/questiontail"
+        android:layout_marginTop="50dip"
+        android:layout_marginLeft="130dip"
+        android:text="@string/option4"/>
+    
+    <Button
+        android:id="@+id/blank1"
+        android:layout_width="120dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/role1"
+        android:layout_below="@+id/questionhead"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="155dip"/>
+    
+    <Button
+        android:id="@+id/blank2"
+        android:layout_width="120dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/role2"
+        android:layout_below="@+id/blank1"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="155dip"/>
+    
+    <Button
+        android:id="@+id/blank3"
+        android:layout_width="120dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/role3"
+        android:layout_below="@+id/blank2"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="155dip"/>
+    
+    <Button
+        android:id="@+id/blank4"
+        android:layout_width="120dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/role4"
+        android:layout_below="@+id/blank3"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="155dip"/>
+
+</RelativeLayout>

@@ -20,7 +20,6 @@ public class getlinequestion {
 		getsqldatabase getsql = new getsqldatabase(context);
 		SQLiteDatabase database = getsql.opensqlDatabase();
 		Cursor cursor = database.rawQuery(
-//				"select * from question where id=?", args);
 				"select * from linequestion where id=?", args);
 		int colums = cursor.getColumnCount();
 		while (cursor.moveToNext()) {

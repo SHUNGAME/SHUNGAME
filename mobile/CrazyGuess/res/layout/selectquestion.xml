@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@drawable/background1">
+    
+    <Button 
+        android:id="@+id/back"
+        android:layout_width="80dip"
+        android:layout_height="40dip"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="10dip"
+        android:textSize="15sp"
+        android:text="@string/exitquestion"/>
+    
+    <TextView
+	    android:id="@+id/scorestext"
+	    android:layout_width="100dip"
+	    android:layout_height="30dip"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:layout_marginTop="14dip"
+	    android:layout_marginRight="20dip"
+	    android:text="@string/scorestext" />
+
+	<TextView
+	    android:id="@+id/selectquestiontext"
+	    android:layout_width="280dip"
+	    android:layout_height="40dip"
+	    android:layout_below="@+id/scorestext"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="5dip"
+	    android:text="@string/questiontext" />
+
+	<Button
+	    android:id="@+id/help1"
+	    android:layout_width="80dip"
+	    android:layout_height="40dip"
+	    android:layout_alignLeft="@+id/selectquestiontext"
+	    android:layout_below="@+id/selectquestiontext"
+	    android:layout_marginTop="20dip"
+	    android:text="@string/help1" />
+	
+	<Button
+	    android:id="@+id/help2"
+	    android:layout_width="80dip"
+	    android:layout_height="40dip"
+	    android:layout_alignLeft="@+id/selectquestiontext"
+	    android:layout_below="@+id/selectquestiontext"
+	    android:layout_marginTop="70dip"
+	    android:text="@string/help2"/>
+	
+	<TextView 
+	    android:id="@+id/helptext1"
+	    android:layout_width="160dip"
+	    android:layout_height="40dip"
+	    android:layout_alignLeft="@+id/selectquestiontext"
+	    android:layout_below="@+id/selectquestiontext"
+	    android:layout_marginTop="20dip"
+	    android:layout_marginLeft="120dip" />
+	
+	<TextView 
+	    android:id="@+id/helptext2"
+	    android:layout_width="160dip"
+	    android:layout_height="40dip"
+	    android:layout_alignLeft="@+id/selectquestiontext"
+	    android:layout_below="@+id/selectquestiontext"
+	    android:layout_marginTop="70dip"
+	    android:layout_marginLeft="120dip"/>
+
+	<Button
+	    android:id="@+id/SoptA"
+	    android:layout_width="200dip"
+	    android:layout_height="40dip"
+	    android:layout_below="@+id/selectquestiontext"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="140dip"
+	    android:gravity="left|center_vertical" 
+	    android:text="@string/option1"/>
+	
+	<Button 
+	    android:id="@+id/SoptB"
+	    android:layout_width="200dip"
+	    android:layout_height="40dip"
+	    android:layout_below="@+id/selectquestiontext"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="185dip"
+	    android:gravity="left|center_vertical"
+	    android:text="@string/option2"/>
+	
+	<Button
+	    android:id="@+id/SoptC"
+	    android:layout_width="200dip"
+	    android:layout_height="40dip"
+	    android:layout_below="@+id/selectquestiontext"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="230dip"
+	    android:gravity="left|center_vertical"
+	    android:text="@string/option3"/>
+	
+	<Button
+	    android:id="@+id/SoptD"
+	    android:layout_width="200dip"
+	    android:layout_height="40dip"
+	    android:layout_below="@+id/selectquestiontext"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="275dip"
+	    android:gravity="left|center_vertical"
+	    android:text="@string/option4"/>
+    
+</RelativeLayout>

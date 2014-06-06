@@ -1,17 +1,14 @@
 package com.extra.crazyguess.MusicTools;
 
-import java.net.ContentHandler;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import com.extra.crazyguess.R;
 
-import android.R.integer;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.text.StaticLayout;
 
 public class SoundPlayer {
 
@@ -20,6 +17,7 @@ public class SoundPlayer {
 	private static Map<Integer, Integer> soundMap; // R.raw.中的id与soundPool中的id的键值对应Map
 	private static SoundPool soundPool; // 音乐池对象
 
+	@SuppressLint("UseSparseArrays")
 	public static void init(Context c) {
 		context = c;
 		soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 0);

@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cartoon"
-     >
+    android:background="@drawable/background1">
 
     <Switch
         android:id="@+id/switch2"
@@ -12,10 +11,10 @@
         android:layout_alignLeft="@+id/switch1"
         android:layout_alignParentTop="true"  
         android:textColorLink="#FF0099"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="40dip"
         android:textColor="#FF0099"
         android:checked="true"
-        android:text="背景音乐开关" />
+        android:text="@string/musicswitch"/>
 
     <Switch
         android:id="@+id/switch1"
@@ -24,8 +23,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:textColor="#FF0099"
-        android:layout_marginBottom="156dp"
+        android:layout_marginBottom="156dip"
         android:checked="true"
-        android:text="音效开关" />
+        android:text="@string/voiceswitch"/>
 
 </RelativeLayout>
