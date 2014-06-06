@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 
-@WebServlet("index.html")
+@WebServlet("/score")
 public class IndexServlet extends HttpServlet {
 	/**
 	 * serial id.
@@ -45,6 +45,12 @@ public class IndexServlet extends HttpServlet {
 		map.put("score", "90");
 		list.add(map);
 		out.print(new JSONArray(list).toString());
-		//super.doPost(req, resp);
 	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		this.doPost(req, resp);
+	}
+	
 }
