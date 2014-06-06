@@ -20,7 +20,6 @@ public class ShunContext implements ApplicationContextAware , DisposableBean {
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext)
 			throws BeansException {
-		// TODO Auto-generated method stub
 		ShunContext.applicationContext = applicationContext;
 	}
 
@@ -66,7 +65,6 @@ public class ShunContext implements ApplicationContextAware , DisposableBean {
 
 	@Override
 	public void destroy() throws Exception {
-		// TODO Auto-generated method stub
 		applicationContext = null;
 	}
 
